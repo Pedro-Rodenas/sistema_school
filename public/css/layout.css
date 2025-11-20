@@ -1,0 +1,123 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* ======== LAYOUT GENERAL ======== */
+.layout-container {
+    display: flex;
+    height: 100vh;
+    overflow: hidden;
+}
+
+.content-wrapper {
+    width: 85%;
+}
+
+/* ======= SIDEBAR ======= */
+
+.sidebar {
+    width: 15%;
+    background: #000;
+    color: #e1e1e1;
+    height: 100vh;
+    padding: 20px 0;
+    display: flex;
+    flex-direction: column;
+}
+
+.sidebar-header {
+    padding: 20px;
+    text-align: center;
+}
+
+.sidebar-header img {
+    width: 120px;
+}
+
+/* ======= MENU ======= */
+
+.sidebar-menu {
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+.menu-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 25px;
+    color: #bfbfbf;
+    text-decoration: none;
+    font-size: 16px;
+    position: relative;
+    transition: background 0.2s ease, color 0.2s ease;
+}
+
+.menu-item .icon {
+    font-size: 20px;
+}
+
+.menu-item:hover {
+    background: #111;
+    color: #fff;
+}
+
+/* ACTIVE SOLO CON BARRETA DERECHA */
+.menu-item.active {
+    color: #fff;
+    /* opcional, puedes dejarlo gris si quieres */
+    font-weight: 600;
+}
+
+.menu-item.active::after {
+    content: "";
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: 7px;
+    height: 100%;
+    background: #fff;
+    border-radius: 4px 0 0 4px;
+}
+
+/* ======= FOOTER ======= */
+
+.sidebar-footer {
+    margin-top: auto;
+    padding: 20px;
+}
+
+.logout-btn {
+    width: 100%;
+    background: #222;
+    border: none;
+    padding: 12px;
+    color: #e1e1e1;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: background 0.2s ease;
+}
+
+.logout-btn:hover {
+    background: #333;
+}
+
+/* Badge */
+.btn-toggle {
+    background: #ff4f4f;
+    color: #fff;
+    border: none;
+    padding: 7px 14px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: background 0.2s ease;
+}
+
+.btn-toggle:hover {
+    background: #e83e3e;
+}
