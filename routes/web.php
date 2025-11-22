@@ -4,6 +4,7 @@ use App\Http\Controllers\Auth\SocialController;
 use App\Http\Controllers\CursoController;
 use App\Http\Controllers\ProfesorController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\AlumnoController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -30,6 +31,17 @@ Route::get('/cursos/modal/{id}/edit', [CursoController::class, 'modalEdit'])
     ->name('cursos.modal.edit');
 Route::get('/cursos/{id}/detalle', [CursoController::class, 'detalle'])
     ->name('cursos.detalle');
+
+/* RUTAS DEL MÓDULO DE ALUMNOS */
+Route::resource('alumnos', AlumnoController::class);
+Route::get('/alumnos/modal/create', [AlumnoController::class, 'modalCreate'])
+    ->name('alumnos.modal.create');
+Route::get('/alumnos/modal/{id}/edit', [AlumnoController::class, 'modalEdit'])
+    ->name('alumnos.modal.edit');
+Route::get('/alumnos/filtrar/{estado}', [AlumnoController::class, 'filtrar'])
+    ->name('alumnos.filtrar');
+Route::put('/alumnos/{id}/estado', [AlumnoController::class, 'cambiarEstado'])
+    ->name('alumnos.estado');
 
 
 Route::get('/auth/redirect/{provider}', [SocialController::class, 'redirect'])->name('social.redirect');

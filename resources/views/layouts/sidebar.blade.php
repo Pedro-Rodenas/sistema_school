@@ -22,7 +22,8 @@
         </a>
 
         {{-- ALUMNOS (aún no existe) --}}
-        <a href="#" class="menu-item">
+        <a href="{{ route('alumnos.index') }}"
+            class="menu-item {{ request()->is('alumnos') || request()->is('alumnos/*') ? 'active' : '' }}">
             <i class="fa-solid fa-user-graduate icon"></i>
             <span class="text">Alumnos</span>
         </a>
