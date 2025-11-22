@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Auth\SocialController;
+use App\Http\Controllers\CursoController;
 use App\Http\Controllers\ProfesorController;
 use Illuminate\Support\Facades\Route;
 
@@ -20,6 +21,15 @@ Route::get('/profesores/modal/{id}/edit', [ProfesorController::class, 'modalEdit
     ->name('profesores.modal.edit');
 Route::get('/profesores/filtrar/{estado}', [ProfesorController::class, 'filtrar']);
 Route::put('/profesores/{id}/estado', [ProfesorController::class, 'cambiarEstado']);
+
+/* RUTAS DEL MÓDULO DE CURSOS */
+Route::resource('cursos', CursoController::class);
+Route::get('/cursos/modal/create', [CursoController::class, 'modalCreate'])
+    ->name('cursos.modal.create');
+Route::get('/cursos/modal/{id}/edit', [CursoController::class, 'modalEdit'])
+    ->name('cursos.modal.edit');
+Route::get('/cursos/{id}/detalle', [CursoController::class, 'detalle'])
+    ->name('cursos.detalle');
 
 
 Route::get('/auth/redirect/{provider}', [SocialController::class, 'redirect'])->name('social.redirect');

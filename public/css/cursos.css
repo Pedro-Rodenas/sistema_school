@@ -1,0 +1,390 @@
+/* ===========================
+   RESET & BASE
+=========================== */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Inter", sans-serif;
+}
+
+body {
+    background: #f2f2f2;
+    color: #000;
+}
+
+.container,
+.profesores-page {
+    padding: 20px;
+}
+
+
+
+/* ===========================
+   HEADER SUPERIOR
+=========================== */
+
+.c-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 25px;
+}
+
+.c-header h2 {
+    font-size: 26px;
+    color: #000;
+    font-weight: 800;
+}
+
+/* Botón "Nuevo Curso" */
+.btn-add {
+    background: #000;
+    color: #fff;
+    padding: 10px 18px;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: 0.2s;
+}
+
+.btn-add:hover {
+    background: #2e2e2e;
+}
+
+
+
+/* ===========================
+   GRID DE CARDS
+=========================== */
+
+.c-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 22px;
+}
+
+
+
+/* ===========================
+   CARD
+=========================== */
+
+.c-card {
+    background: #fff;
+    padding: 20px;
+    border-radius: 14px;
+    border: 1px solid #e3e3e3;
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.08);
+    transition: 0.25s;
+    cursor: pointer;
+}
+
+.c-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+    border-color: #000;
+}
+
+.c-card h3 {
+    font-size: 20px;
+    font-weight: 700;
+    color: #000;
+    margin-bottom: 8px;
+}
+
+.c-prof {
+    font-size: 14px;
+    color: #444;
+    margin-bottom: 14px;
+}
+
+.c-extra {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 14px;
+    font-size: 13px;
+    color: #333;
+    font-weight: 600;
+}
+
+/* Badge de estado */
+.badge {
+    padding: 4px 10px;
+    border-radius: 8px;
+    font-size: 11px;
+    color: white;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.badge.activo {
+    background: #000;
+}
+
+.badge.inactivo {
+    background: #666;
+}
+
+
+
+/* ===========================
+   BOTONES DE LAS CARDS
+=========================== */
+
+.btn-more-curso,
+.btn-edit-curso {
+    width: 100%;
+    padding: 10px;
+    border-radius: 10px;
+    border: none;
+    margin-top: 8px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: 0.25s;
+    font-size: 14px;
+}
+
+/* Ver más */
+.btn-more-curso {
+    background: #fff;
+    border: 1px solid #000;
+    color: #000;
+}
+
+.btn-more-curso:hover {
+    background: #000;
+    color: #fff;
+}
+
+/* Editar */
+.btn-edit-curso {
+    background: #000;
+    color: #fff;
+}
+
+.btn-edit-curso:hover {
+    background: #2b2b2b;
+}
+
+
+
+/* ===========================
+   MODALES
+=========================== */
+
+.modal {
+    display: none;
+    position: fixed;
+    inset: 0;
+    backdrop-filter: blur(4px);
+    background: rgba(0, 0, 0, 0.45);
+    justify-content: center;
+    align-items: center;
+    z-index: 900;
+}
+
+.modal-content {
+    width: 520px;
+    max-height: 90vh;
+    overflow-y: auto;
+    background: #fff;
+    padding: 25px;
+    border-radius: 18px;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.25);
+    animation: fadeIn 0.2s ease;
+}
+
+.modal-content h2 {
+    font-size: 22px;
+    margin-bottom: 20px;
+    font-weight: 900;
+    color: #000;
+}
+
+/* Cerrar */
+.modal-close {
+    float: right;
+    font-size: 26px;
+    cursor: pointer;
+    font-weight: bold;
+    color: #111;
+}
+
+
+
+/* Animación */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-8px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+
+
+/* ===========================
+   FORMULARIO
+=========================== */
+
+.form-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px 16px;
+}
+
+.form-full {
+    grid-column: span 2;
+}
+
+.form-group label {
+    font-weight: 600;
+    margin-bottom: 6px;
+    display: block;
+    color: #000;
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+    width: 100%;
+    padding: 11px 12px;
+    border-radius: 10px;
+    border: 1px solid #d4d4d4;
+    background: #f7f7f7;
+    transition: 0.25s;
+    font-size: 14px;
+}
+
+.form-group input:focus,
+.form-group textarea:focus,
+.form-group select:focus {
+    border-color: #000;
+    background: #fff;
+    outline: none;
+}
+
+.form-group textarea {
+    resize: vertical;
+    min-height: 70px;
+}
+
+
+
+/* ===========================
+   BOTONES DEL MODAL
+=========================== */
+
+.modal-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 14px;
+    margin-top: 14px;
+    padding-top: 12px;
+}
+
+.btn-cancel {
+    background: #d2d2d2;
+    color: #000;
+    padding: 10px 18px;
+    border-radius: 10px;
+    border: none;
+    cursor: pointer;
+    font-weight: 600;
+}
+
+.btn-cancel:hover {
+    background: #b4b4b4;
+}
+
+.btn-save,
+.btn-update {
+    background: #000;
+    color: #fff;
+    padding: 10px 18px;
+    border-radius: 10px;
+    border: none;
+    cursor: pointer;
+    font-weight: 600;
+    transition: 0.2s;
+}
+
+.btn-save:hover,
+.btn-update:hover {
+    background: #222;
+}
+
+/* ===========================
+   SCROLL
+=========================== */
+
+.modal-content::-webkit-scrollbar {
+    width: 8px;
+}
+
+.modal-content::-webkit-scrollbar-thumb {
+    background: #ccc;
+    border-radius: 10px;
+}
+
+/* Tarjeta SHOW exclusiva */
+.curso-show-card {
+    background: #111;
+    color: #fff;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 0 25px rgba(0, 0, 0, 0.5);
+}
+
+/* Close exclusivo */
+.curso-show-close {
+    color: #fff !important;
+}
+
+/* Header */
+.curso-show-header {
+    margin-bottom: 22px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+    padding-bottom: 12px;
+}
+
+.curso-show-header h2 {
+    color: #fff;
+    margin-bottom: 6px;
+}
+
+.curso-show-profesor strong {
+    color: #aaa;
+}
+
+/* Grid */
+.curso-show-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+}
+
+/* Items */
+.curso-show-item {
+    background: rgba(255, 255, 255, 0.06);
+    padding: 12px 14px;
+    border-radius: 12px;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.curso-show-label {
+    font-size: 13px;
+    color: #ccc;
+}
+
+.curso-show-value {
+    margin-top: 4px;
+    font-size: 15px;
+    color: #fff;
+}

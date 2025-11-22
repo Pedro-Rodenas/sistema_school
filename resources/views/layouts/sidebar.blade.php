@@ -14,8 +14,9 @@
             <span class="text">Profesores</span>
         </a>
 
-        {{-- CURSOS (todavía no existe, luego lo agregamos) --}}
-        <a href="#" class="menu-item">
+        {{-- CURSOS --}}
+        <a href="{{ route('cursos.index') }}"
+            class="menu-item {{ request()->is('cursos') || request()->is('cursos/*') ? 'active' : '' }}">
             <i class="fa-solid fa-book icon"></i>
             <span class="text">Cursos</span>
         </a>
