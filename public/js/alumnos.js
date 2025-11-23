@@ -1,8 +1,8 @@
 document.addEventListener("DOMContentLoaded", () => {
 
-    // ------------------------------------
+    // ====================================
     // 📌 VARIABLES GLOBALES
-    // ------------------------------------
+    // ====================================
     const tabla = document.querySelector("#tabla-alumnos tbody");
     const buscador = document.getElementById("buscador-alumnos");
     const switchEstado = document.getElementById("switch-estado-alumnos");
@@ -13,13 +13,14 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const btnOpenCreate = document.getElementById("btn-open-create-alumno");
     const modalCreate = document.getElementById("modal-create-alumno");
+
     const modalEdit = document.getElementById("modal-edit-alumno");
     const formEdit = document.getElementById("form-edit-alumno");
 
 
-    // ------------------------------------
-    // 🔍 BUSCADOR
-    // ------------------------------------
+    // ====================================
+    // 🔍 BUSCADOR EN TABLA
+    // ====================================
     const aplicarBuscador = () => {
         const texto = buscador.value.toLowerCase();
         document.querySelectorAll("#tabla-alumnos tbody tr").forEach(fila => {
@@ -30,9 +31,9 @@ document.addEventListener("DOMContentLoaded", () => {
     };
 
 
-    // ------------------------------------
-    // 🔄 CARGAR ALUMNOS CON AJAX SEGÚN ESTADO
-    // ------------------------------------
+    // ====================================
+    // 🔄 CARGAR ALUMNOS CON AJAX
+    // ====================================
     const cargarAlumnos = async () => {
         const res = await fetch(`/alumnos/filtrar/${estadoActual}`);
         const data = await res.json();
@@ -59,8 +60,13 @@ document.addEventListener("DOMContentLoaded", () => {
                             data-estado="${a.estado}">
                             Editar
                         </button>
+
                         <button class="btn-toggle" data-id="${a.id}">
                             ${a.estado === "activo" ? "Inactivar" : "Activar"}
+                        </button>
+
+                        <button class="btn-assign-cursos" data-id="${a.id}">
+                            Asignar Cursos
                         </button>
                     </td>
                 </tr>
@@ -68,15 +74,13 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     };
 
-
-    // Inicializar tabla
     cargarAlumnos().then(aplicarBuscador);
     buscador.addEventListener("input", aplicarBuscador);
 
 
-    // ------------------------------------
-    // 🔁 CAMBIO DE ESTADO (Activos/Inactivos)
-    // ------------------------------------
+    // ====================================
+    // 🔁 FILTRO ACTIVO / INACTIVO
+    // ====================================
     switchEstado.addEventListener("change", () => {
         estadoActual = switchEstado.checked ? "inactivo" : "activo";
         labelEstado.textContent = estadoActual === "activo" ? "Activos" : "Inactivos";
@@ -84,24 +88,27 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
 
-    // ------------------------------------
-    // 🛠 ACCIONES DE TABLA: Editar + Cambiar Estado
-    // ------------------------------------
+    // ====================================
+    // 🛠 EDITAR + CAMBIAR ESTADO
+    // ====================================
     document.addEventListener("click", async (e) => {
-        // Cambiar estado
+
+        // 📌 Cambiar estado
         const btnToggle = e.target.closest(".btn-toggle");
         if (btnToggle) {
             if (!confirm("¿Seguro que deseas cambiar el estado?")) return;
-            const id = btnToggle.dataset.id;
 
+            const id = btnToggle.dataset.id;
             await fetch(`/alumnos/${id}/estado`, {
                 method: "PUT",
                 headers: { "X-CSRF-TOKEN": csrfToken }
             });
+
             cargarAlumnos().then(aplicarBuscador);
         }
 
-        // Abrir modal edición
+
+        // 📌 Abrir modal edición
         const btnEdit = e.target.closest(".btn-edit-alumno");
         if (btnEdit) {
             document.getElementById("edit-id-al").value = btnEdit.dataset.id;
@@ -118,17 +125,17 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
 
-    // ------------------------------------
-    // 🧩 CERRAR MODAL EDICIÓN
-    // ------------------------------------
+    // ====================================
+    // ❌ Cerrar modal edición
+    // ====================================
     document.addEventListener("click", (e) => {
         if (e.target.id === "close-edit-alumno") modalEdit.style.display = "none";
     });
 
 
-    // ------------------------------------
-    // ✏️ EDITAR ALUMNO (AJAX SUBMIT)
-    // ------------------------------------
+    // ====================================
+    // ✏️ EDITAR ALUMNO (SUBMIT AJAX)
+    // ====================================
     if (formEdit) {
         formEdit.addEventListener("submit", async (e) => {
             e.preventDefault();
@@ -146,15 +153,15 @@ document.addEventListener("DOMContentLoaded", () => {
                 modalEdit.style.display = "none";
                 cargarAlumnos().then(aplicarBuscador);
             } else {
-                alert("Error al actualizar (DNI duplicado o datos inválidos)");
+                alert("❌ Error al actualizar los datos");
             }
         });
     }
 
 
-    // ------------------------------------
+    // ====================================
     // 🆕 MODAL CREAR ALUMNO
-    // ------------------------------------
+    // ====================================
     if (btnOpenCreate) {
         btnOpenCreate.addEventListener("click", () => {
             modalCreate.style.display = "flex";
@@ -162,15 +169,80 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     document.addEventListener("click", (e) => {
-        if (e.target.id === "close-create-alumno") {
-            modalCreate.style.display = "none";
+        if (e.target.id === "close-create-alumno") modalCreate.style.display = "none";
+    });
+
+
+    // ====================================
+    // 🧩 ASIGNAR CURSOS A ALUMNO
+    // ====================================
+    const modalAssign = document.getElementById("modal-assign-cursos");
+    const formAssign = document.getElementById("form-assign-cursos");
+    const listaCursos = document.getElementById("lista-cursos");
+    let alumnoActualId = null;
+
+
+    // 📌 Abrir modal asignar cursos
+    document.addEventListener("click", async (e) => {
+        const btnAssign = e.target.closest(".btn-assign-cursos");
+        if (!btnAssign) return;
+
+        alumnoActualId = btnAssign.dataset.id;
+
+        const res = await fetch(`/alumnos/${alumnoActualId}/cursos`);
+        const data = await res.json();
+
+        listaCursos.innerHTML = "";
+        data.cursos.forEach(curso => {
+            const checked = data.asignados.includes(curso.id) ? "checked" : "";
+            listaCursos.innerHTML += `
+                <label class="curso-checkbox">
+                    <input type="checkbox" value="${curso.id}" ${checked}>
+                    ${curso.nombre}
+                </label>
+            `;
+        });
+
+        modalAssign.style.display = "flex";
+    });
+
+
+    // ❌ Cerrar modal asignar cursos
+    document.addEventListener("click", (e) => {
+        if (e.target.id === "close-assign-cursos") {
+            modalAssign.style.display = "none";
         }
     });
 
 
-    // ------------------------------------
-    // 📊 GRÁFICOS Chart.js
-    // ------------------------------------
+    // 📌 Guardar cambios de cursos asignados
+    formAssign?.addEventListener("submit", async (e) => {
+        e.preventDefault();
+
+        const idsCursos = [...listaCursos.querySelectorAll("input[type='checkbox']:checked")]
+            .map(c => c.value);
+
+        const res = await fetch(`/alumnos/${alumnoActualId}/cursos`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                "X-CSRF-TOKEN": csrfToken,
+            },
+            body: JSON.stringify({ cursos: idsCursos }),
+        });
+
+        if (res.ok) {
+            alert("Cursos actualizados correctamente ✔");
+            modalAssign.style.display = "none";
+        } else {
+            alert("❌ Error al guardar cursos");
+        }
+    });
+
+
+    // ====================================
+    // 📊 GRÁFICOS CHART.JS
+    // ====================================
     if (window.alumnoData) {
         const { conteoPorEdad, conteoPorMes } = window.alumnoData;
 

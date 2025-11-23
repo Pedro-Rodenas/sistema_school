@@ -11,6 +11,9 @@
 
         <div class="c-grid">
             @foreach($cursos as $curso)
+                @php
+                    $inscritos = $curso->alumnos()->count();
+                @endphp
                 <div class="c-card" data-id="{{ $curso->id }}" data-nombre="{{ $curso->nombre }}"
                     data-descripcion="{{ $curso->descripcion }}" data-stock="{{ $curso->stock_alumnos }}"
                     data-inicio="{{ $curso->fecha_inicio }}" data-fin="{{ $curso->fecha_fin }}" data-nivel="{{ $curso->nivel }}"
@@ -21,7 +24,10 @@
                     <p class="c-prof">{{ $curso->profesor->nombre }}</p>
 
                     <div class="c-extra">
-                        <span>Alumnos: {{ $curso->stock_alumnos }}</span>
+                        {{-- Mostrar inscritos sobre cupo --}}
+                        <span>Alumnos: {{ $inscritos }}/{{ $curso->stock_alumnos }}</span>
+
+                        {{-- Estado --}}
                         <span class="badge {{ $curso->estado }}">
                             {{ ucfirst($curso->estado) }}
                         </span>

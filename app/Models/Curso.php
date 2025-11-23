@@ -27,7 +27,7 @@ class Curso extends Model
     ];
 
     protected $casts = [
-        'temas_semanales' => 'array', // JSON → array automático
+        'temas_semanales' => 'array',
         'fecha_inicio' => 'date',
         'fecha_fin' => 'date',
     ];
@@ -36,5 +36,12 @@ class Curso extends Model
     public function profesor()
     {
         return $this->belongsTo(Profesor::class);
+    }
+
+    // Relación con alumnos (Muchos a Muchos)
+    public function alumnos()
+    {
+        return $this->belongsToMany(\App\Models\Alumno::class, 'alumno_curso')
+            ->withTimestamps();
     }
 }

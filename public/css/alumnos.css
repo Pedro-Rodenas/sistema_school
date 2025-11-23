@@ -242,3 +242,18 @@ input:checked+.slider:before {
     padding: 20px;
     border: 1px solid #ddd;
 }
+
+/* Botón asignar cursos */
+.btn-assign-cursos {
+    background: #007bff;
+    color: #fff;
+    padding: 6px 12px;
+    border-radius: 8px;
+    border: none;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+
+.btn-assign-cursos:hover {
+    background: #0056b3;
+}

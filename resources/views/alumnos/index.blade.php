@@ -80,6 +80,10 @@
                                 <button class="btn-toggle" data-id="{{ $a->id }}">
                                     {{ $a->estado === 'activo' ? 'Inactivar' : 'Activar' }}
                                 </button>
+                                <button class="btn-assign-cursos" data-id="{{ $a->id }}">
+                                    Asignar Cursos
+                                </button>
+
                             </td>
                         </tr>
                     @endforeach
@@ -90,6 +94,7 @@
 
     @include('alumnos.modals.create')
     @include('alumnos.modals.edit')
+    @include('alumnos.modals.assign-cursos')
 
     <script>
         window.alumnoData = {

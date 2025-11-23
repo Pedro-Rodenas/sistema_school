@@ -177,4 +177,51 @@ class AlumnoController extends Controller
 
         return response()->json(['ok' => true]);
     }
+
+    // Mostrar form de asignación
+    public function asignarCursos($id)
+    {
+        $alumno = Alumno::findOrFail($id);
+
+        $todosCursos = \App\Models\Curso::select('id', 'nombre')->get();
+        $asignados = $alumno->cursos()->pluck('curso_id')->toArray();
+
+        return response()->json([
+            'cursos' => $todosCursos,
+            'asignados' => $asignados
+        ]);
+    }
+
+    /* Guardar asignación */
+    public function actualizarCursos(Request $request, $id)
+    {
+        $alumno = Alumno::findOrFail($id);
+
+        $nuevosCursos = $request->cursos ?? [];
+        $cursosActuales = $alumno->cursos()->pluck('curso_id')->toArray();
+
+        $cursosAgregar = array_diff($nuevosCursos, $cursosActuales);
+
+        foreach ($cursosAgregar as $cursoId) {
+            $curso = \App\Models\Curso::find($cursoId);
+
+            if (!$curso) {
+                return response()->json(['error' => "Curso no encontrado"], 404);
+            }
+
+            $inscritos = $curso->alumnos()->count();
+
+            if ($inscritos >= $curso->stock_alumnos) {
+                return response()->json([
+                    'error' => "El curso '{$curso->nombre}' ya no tiene cupos disponibles"
+                ], 422);
+            }
+        }
+
+        $alumno->cursos()->sync($nuevosCursos);
+
+        return response()->json(['msg' => "Cursos actualizados correctamente"]);
+    }
+
+
 }

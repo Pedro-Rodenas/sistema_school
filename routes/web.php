@@ -43,6 +43,10 @@ Route::get('/alumnos/filtrar/{estado}', [AlumnoController::class, 'filtrar'])
 Route::put('/alumnos/{id}/estado', [AlumnoController::class, 'cambiarEstado'])
     ->name('alumnos.estado');
 
+Route::get('/alumnos/{id}/cursos', [AlumnoController::class, 'asignarCursos']);
+Route::post('/alumnos/{id}/cursos', [AlumnoController::class, 'actualizarCursos'])->name('alumnos.cursos.update');
+
+
 
 Route::get('/auth/redirect/{provider}', [SocialController::class, 'redirect'])->name('social.redirect');
 Route::get('/auth/callback/{provider}', [SocialController::class, 'callback'])->name('social.callback');
