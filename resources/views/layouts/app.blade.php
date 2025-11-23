@@ -12,6 +12,7 @@
     <link rel="stylesheet" href="{{ asset('css/profesores.css') }}">
     <link rel="stylesheet" href="{{ asset('css/cursos.css') }}">
     <link rel="stylesheet" href="{{ asset('css/alumnos.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/dashboard.css') }}">
 
     <title>@yield('title', 'Special School')</title>
 </head>

@@ -5,6 +5,7 @@ use App\Http\Controllers\CursoController;
 use App\Http\Controllers\ProfesorController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AlumnoController;
+use App\Http\Controllers\DashboardController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -43,10 +44,11 @@ Route::get('/alumnos/filtrar/{estado}', [AlumnoController::class, 'filtrar'])
 Route::put('/alumnos/{id}/estado', [AlumnoController::class, 'cambiarEstado'])
     ->name('alumnos.estado');
 
+/* RUTAS PARA EL DASHBOARD */
+Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard.index');
+
 Route::get('/alumnos/{id}/cursos', [AlumnoController::class, 'asignarCursos']);
 Route::post('/alumnos/{id}/cursos', [AlumnoController::class, 'actualizarCursos'])->name('alumnos.cursos.update');
-
-
 
 Route::get('/auth/redirect/{provider}', [SocialController::class, 'redirect'])->name('social.redirect');
 Route::get('/auth/callback/{provider}', [SocialController::class, 'callback'])->name('social.callback');

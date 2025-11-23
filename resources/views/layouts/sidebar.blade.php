@@ -8,6 +8,13 @@
     <nav class="sidebar-menu">
 
         {{-- PROFESORES --}}
+        <a href="{{ route('dashboard.index') }}"
+            class="menu-item {{ request()->is('dashboard') || request()->is('dashboard/*') ? 'active' : '' }}">
+            <i class="fa-solid fa-user-tie icon"></i>
+            <span class="text">Dashboard</span>
+        </a>
+
+        {{-- PROFESORES --}}
         <a href="{{ route('profesores.index') }}"
             class="menu-item {{ request()->is('profesores') || request()->is('profesores/*') ? 'active' : '' }}">
             <i class="fa-solid fa-user-tie icon"></i>
@@ -26,12 +33,6 @@
             class="menu-item {{ request()->is('alumnos') || request()->is('alumnos/*') ? 'active' : '' }}">
             <i class="fa-solid fa-user-graduate icon"></i>
             <span class="text">Alumnos</span>
-        </a>
-
-        {{-- CONFIGURACIÓN --}}
-        <a href="#" class="menu-item">
-            <i class="fa-solid fa-gear icon"></i>
-            <span class="text">Configuración</span>
         </a>
 
     </nav>

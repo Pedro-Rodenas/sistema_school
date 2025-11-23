@@ -1,0 +1,189 @@
+:root {
+    --bg-dark: #0d0d0d;
+    --bg-card: #111;
+    --txt-light: #fff;
+    --txt-muted: #ccc;
+    --border-light: rgba(255, 255, 255, 0.12);
+    --shadow-soft: rgba(255, 255, 255, 0.06);
+}
+
+/* Layout dashboard */
+.dashboard-container {
+    padding: 24px;
+    display: grid;
+    grid-template-columns: 1fr 2fr 1.2fr;
+    gap: 24px;
+}
+
+/* ========================================= */
+/* INDICADORES */
+/* ========================================= */
+.cards-indicadores {
+    grid-column: span 3;
+    display: flex;
+    gap: 20px;
+}
+
+.card-ind {
+    flex: 1;
+    position: relative;
+    background: var(--bg-dark);
+    color: var(--txt-light);
+    padding: 26px;
+    border-radius: 16px;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    border: 1px solid var(--border-light);
+    box-shadow: 0 0 18px var(--shadow-soft);
+    transition: .35s ease-in-out;
+    overflow: hidden;
+    backdrop-filter: blur(4px);
+}
+
+/* ✨ Reflejo diagonal suave + realista */
+.card-ind::before {
+    content: "";
+    position: absolute;
+    top: -160%;
+    left: -200%;
+    width: 380%;
+    height: 380%;
+    background: radial-gradient(ellipse at center,
+            rgba(255, 255, 255, 0.3) 0%,
+            rgba(255, 255, 255, 0.14) 30%,
+            rgba(255, 255, 255, 0.06) 55%,
+            rgba(255, 255, 255, 0) 80%);
+    transform: rotate(20deg);
+    opacity: 0;
+    transition: opacity .4s ease-in-out;
+}
+
+/* Brillo al hover */
+.card-ind:hover::before {
+    opacity: 1;
+    animation: shineMove 2.2s cubic-bezier(0.4, 0.1, 0.2, 1) forwards;
+}
+
+/* 🔁 Movimiento suave + variación de escala */
+@keyframes shineMove {
+    0% {
+        transform: translateX(-70%) rotate(20deg) scale(1.1);
+    }
+
+    55% {
+        transform: translateX(25%) rotate(20deg) scale(1.05);
+    }
+
+    100% {
+        transform: translateX(95%) rotate(20deg) scale(1.25);
+    }
+}
+
+/* Orden correcto de contenido */
+.card-ind * {
+    position: relative;
+    z-index: 2;
+}
+
+/* Iconos */
+.card-ind i {
+    font-size: 42px;
+    opacity: .95;
+}
+
+/* Textos */
+.card-ind .title {
+    font-size: 12px;
+    opacity: .82;
+    text-transform: uppercase;
+    letter-spacing: 1.1px;
+}
+
+.card-ind .value {
+    font-size: 34px;
+    font-weight: 800;
+}
+
+/* ========================================= */
+/* WIDGETS */
+/* ========================================= */
+.widget {
+    background: var(--bg-card);
+    padding: 20px;
+    border-radius: 14px;
+    color: #f2f2f2;
+    box-shadow: 0 0 12px rgba(255, 255, 255, 0.04);
+}
+
+.widget h3 {
+    font-size: 17px;
+    font-weight: 600;
+    margin-bottom: 12px;
+}
+
+/* Top cursos */
+.top-cursos .cards {
+    display: grid;
+    gap: 14px;
+}
+
+.curso-card {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.curso-datos {
+    display: flex;
+    justify-content: space-between;
+    font-size: 13px;
+    color: var(--txt-muted);
+}
+
+.bar-ocupacion {
+    height: 6px;
+    background: #222;
+    border-radius: 6px;
+    overflow: hidden;
+}
+
+.fill {
+    background: linear-gradient(to right, #fff, #888);
+    height: 100%;
+    border-radius: 6px;
+}
+
+/* Últimos alumnos */
+.lista-alumnos {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding: 0;
+    list-style: none;
+}
+
+.alumno-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.avatar {
+    width: 40px;
+    height: 40px;
+    background: #222;
+    border: 2px solid #555;
+    color: var(--txt-light);
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: 700;
+}
+
+.tiempo {
+    margin-left: auto;
+    font-size: 12px;
+    color: #777;
+}
