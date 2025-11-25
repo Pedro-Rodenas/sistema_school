@@ -8,7 +8,7 @@ use App\Http\Controllers\AlumnoController;
 use App\Http\Controllers\DashboardController;
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('auth.login');
 });
 
 Route::get('/login', function () {
@@ -50,5 +50,6 @@ Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard
 Route::get('/alumnos/{id}/cursos', [AlumnoController::class, 'asignarCursos']);
 Route::post('/alumnos/{id}/cursos', [AlumnoController::class, 'actualizarCursos'])->name('alumnos.cursos.update');
 
+Route::post('/login', [SocialController::class, 'authenticate'])->name('login.post');
 Route::get('/auth/redirect/{provider}', [SocialController::class, 'redirect'])->name('social.redirect');
 Route::get('/auth/callback/{provider}', [SocialController::class, 'callback'])->name('social.callback');

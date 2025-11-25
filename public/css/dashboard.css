@@ -1,22 +1,42 @@
+/* ----------------------------------------- */
+/* VARIABLES GLOBALES */
+/* ----------------------------------------- */
 :root {
+    /* Colores base oscuros (Se mantienen para TUS CARDS ORIGINALES) */
     --bg-dark: #0d0d0d;
     --bg-card: #111;
+    /* Fondo de TUS CARDS */
     --txt-light: #fff;
-    --txt-muted: #ccc;
     --border-light: rgba(255, 255, 255, 0.12);
     --shadow-soft: rgba(255, 255, 255, 0.06);
+
+    /* NUEVAS VARIABLES PARA TEMA CLARO */
+    --bg-main: #f7f9fc;
+    /* Fondo principal muy claro (Para el body) */
+    --bg-light-widget: #ffffff;
+    /* Fondo blanco para los nuevos widgets */
+    --txt-dark: #1a1a1a;
+    /* Texto principal oscuro */
+    --txt-muted-dark: #6c757d;
+    /* Texto secundario gris en fondo claro */
+    --border-dark: rgba(0, 0, 0, 0.1);
 }
 
-/* Layout dashboard */
+/* ----------------------------------------- */
+/* BASE: Fondo Principal */
+/* ----------------------------------------- */
+body {
+    background-color: var(--bg-main);
+}
+
 .dashboard-container {
     padding: 24px;
     display: grid;
-    grid-template-columns: 1fr 2fr 1.2fr;
     gap: 24px;
 }
 
 /* ========================================= */
-/* INDICADORES */
+/* INDICADORES (TUS CARDS ORIGINALES) */
 /* ========================================= */
 .cards-indicadores {
     grid-column: span 3;
@@ -25,6 +45,7 @@
 }
 
 .card-ind {
+    /* Se mantienen con var(--bg-dark) y var(--txt-light) */
     flex: 1;
     position: relative;
     background: var(--bg-dark);
@@ -41,7 +62,7 @@
     backdrop-filter: blur(4px);
 }
 
-/* ✨ Reflejo diagonal suave + realista */
+/* ... Animaciones y estilos de card-ind (shineMove, i, title, value) se mantienen ... */
 .card-ind::before {
     content: "";
     position: absolute;
@@ -59,13 +80,11 @@
     transition: opacity .4s ease-in-out;
 }
 
-/* Brillo al hover */
 .card-ind:hover::before {
     opacity: 1;
     animation: shineMove 2.2s cubic-bezier(0.4, 0.1, 0.2, 1) forwards;
 }
 
-/* 🔁 Movimiento suave + variación de escala */
 @keyframes shineMove {
     0% {
         transform: translateX(-70%) rotate(20deg) scale(1.1);
@@ -80,19 +99,16 @@
     }
 }
 
-/* Orden correcto de contenido */
 .card-ind * {
     position: relative;
     z-index: 2;
 }
 
-/* Iconos */
 .card-ind i {
     font-size: 42px;
     opacity: .95;
 }
 
-/* Textos */
 .card-ind .title {
     font-size: 12px;
     opacity: .82;
@@ -106,14 +122,16 @@
 }
 
 /* ========================================= */
-/* WIDGETS */
+/* WIDGETS (BLANCOS) */
 /* ========================================= */
 .widget {
-    background: var(--bg-card);
+    /* Fondo BLANCO, Texto OSCURO */
+    background: var(--bg-light-widget);
+    color: var(--txt-dark);
     padding: 20px;
     border-radius: 14px;
-    color: #f2f2f2;
-    box-shadow: 0 0 12px rgba(255, 255, 255, 0.04);
+    border: 1px solid var(--border-dark);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
 }
 
 .widget h3 {
@@ -122,43 +140,11 @@
     margin-bottom: 12px;
 }
 
-/* Top cursos */
-.top-cursos .cards {
-    display: grid;
-    gap: 14px;
-}
-
-.curso-card {
-    display: flex;
-    flex-direction: column;
-    gap: 6px;
-}
-
-.curso-datos {
-    display: flex;
-    justify-content: space-between;
-    font-size: 13px;
-    color: var(--txt-muted);
-}
-
-.bar-ocupacion {
-    height: 6px;
-    background: #222;
-    border-radius: 6px;
-    overflow: hidden;
-}
-
-.fill {
-    background: linear-gradient(to right, #fff, #888);
-    height: 100%;
-    border-radius: 6px;
-}
-
-/* Últimos alumnos */
+/* LISTAS DENTRO DE WIDGETS */
 .lista-alumnos {
     display: flex;
     flex-direction: column;
-    gap: 10px;
+    gap: 1px;
     padding: 0;
     list-style: none;
 }
@@ -167,12 +153,25 @@
     display: flex;
     align-items: center;
     gap: 12px;
+    padding: 12px 10px;
+    transition: background-color 0.2s;
 }
 
+.alumno-item:last-child {
+    border-bottom: none;
+}
+
+.alumno-item:hover {
+    /* Fondo claro al hacer hover */
+    background-color: var(--bg-main);
+    border-radius: 8px;
+}
+
+/* AVATAR: Se mantiene OSCURO */
 .avatar {
     width: 40px;
     height: 40px;
-    background: #222;
+    background: var(--bg-dark);
     border: 2px solid #555;
     color: var(--txt-light);
     border-radius: 50%;
@@ -182,8 +181,102 @@
     font-weight: 700;
 }
 
+/* TEXTO SECUNDARIO */
+.alumno-item span {
+    color: var(--txt-dark);
+}
+
+.alumno-item span[style*="font-size: 12px"] {
+    color: var(--txt-muted-dark);
+    /* Gris sutil en fondo claro */
+}
+
 .tiempo {
     margin-left: auto;
     font-size: 12px;
-    color: #777;
+    color: var(--txt-muted-dark);
+}
+
+/* ----------------------------------------- */
+/* ESTILOS ESPECÍFICOS PARA LISTAS CLARAS */
+/* ----------------------------------------- */
+
+/* Top Profesores */
+.top-profesores .alumno-item {
+    border-bottom: 1px solid var(--border-dark);
+}
+
+/* 👨‍🏫 Contador de Cursos */
+.top-profesores .tiempo {
+    font-size: 14px;
+    color: var(--txt-light);
+    background: #007bff;
+    /* Color de acento azul */
+    padding: 4px 8px;
+    border-radius: 8px;
+    font-weight: 700;
+}
+
+/* 🆕 ESTILO ESPECÍFICO PARA TOP CURSOS POPULARES */
+.top-cursos-populares .alumno-item {
+    border-bottom: 1px solid var(--border-dark);
+}
+
+/* Próximos Cursos */
+.proximos-cursos .alumno-item {
+    align-items: flex-start;
+    border-bottom: 1px solid var(--border-dark);
+}
+
+/* Ícono de calendario */
+.proximos-cursos .alumno-item i {
+    margin-right: 8px;
+    font-size: 18px;
+    padding-top: 5px;
+    color: #007bff;
+    /* Color de acento azul */
+}
+
+/* Estilo para la fecha en Próximos Cursos */
+.proximos-cursos .tiempo {
+    text-align: right;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+/* Se elimina el estilo de color en CSS ya que se ajustó en línea en el Blade */
+/*
+.proximos-cursos .tiempo span:first-child {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--txt-dark);
+}
+
+.proximos-cursos .tiempo span:last-child {
+    font-size: 10px;
+    color: var(--txt-muted-dark);
+    text-transform: lowercase;
+}
+*/
+
+/* NUEVOS ESTILOS PARA LA FILA DE GRÁFICOS */
+.charts-row {
+    /* Ocupa las tres columnas del grid principal */
+    grid-column: span 3;
+    display: grid;
+    /* Divide la fila de charts en dos columnas iguales */
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+    margin-top: 10px;
+    /* Separación de la fila de arriba */
+}
+
+/* Estilos de los widgets  dentro de la fila (opcional) */
+.estado-chart,
+.nivel-chart {
+    /* AUMENTADO: De 340px a 460px */
+    min-height: 460px;
+    display: flex;
+    flex-direction: column;
 }
