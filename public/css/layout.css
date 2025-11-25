@@ -122,3 +122,153 @@
 .btn-toggle:hover {
     background: #e83e3e;
 }
+
+.fab-ai-button {
+    /* MANTENERLO FLOTANTE Y FIJO EN LA VISTA */
+    position: fixed;
+    bottom: 30px;
+    /* Separación del borde inferior */
+    right: 30px;
+    /* Separación del borde derecho */
+    z-index: 1000;
+    /* Asegura que esté por encima de otros elementos */
+
+    /* ESTILO (AJUSTAR A TUS COLORES) */
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    /* Lo hace circular */
+    border: none;
+    cursor: pointer;
+
+    /* Usaremos el color azul de acento profesional para el FAB */
+    background-color: #007bff;
+    /* Azul de acento */
+    color: white;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+    transition: transform 0.2s, background-color 0.2s;
+
+    /* Centrar el ícono */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.fab-ai-button i {
+    font-size: 24px;
+}
+
+.fab-ai-button:hover {
+    background-color: #0056b3;
+    /* Tono más oscuro al pasar el ratón */
+    transform: scale(1.05);
+    /* Pequeña animación */
+}
+
+.ai-chat-modal {
+    position: fixed;
+    bottom: 100px;
+    right: 30px;
+    width: 360px;
+    height: 500px;
+    z-index: 999;
+    display: none;
+    background-color: rgba(255, 255, 255, 0.95);
+    border: 1px solid rgba(0, 0, 0, 0.15);
+    border-radius: 12px;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2);
+    flex-direction: column;
+    overflow: hidden;
+}
+
+.ai-chat-modal.active {
+    display: flex;
+}
+
+/* Encabezado */
+.chat-header {
+    padding: 12px 15px;
+    background-color: rgba(0, 0, 0, 0.05);
+    /* Fondo muy claro para el encabezado */
+    color: var(--txt-dark);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.chat-header h3 {
+    margin: 0;
+    font-size: 16px;
+    font-weight: 600;
+}
+
+.chat-header .close-btn {
+    background: none;
+    border: none;
+    font-size: 20px;
+    cursor: pointer;
+    color: var(--txt-dark);
+}
+
+/* Cuerpo del Chat (Mensajes) */
+.chat-body {
+    flex-grow: 1;
+    padding: 15px;
+    overflow-y: auto;
+    background-color: var(--bg-light-widget);
+}
+
+/* Estilo de Mensajes */
+.message {
+    padding: 8px 12px;
+    border-radius: 8px;
+    margin-bottom: 10px;
+    max-width: 85%;
+    font-size: 14px;
+    line-height: 1.4;
+}
+
+.system-message {
+    background-color: rgba(0, 0, 0, 0.08);
+    /* Gris muy claro para mensajes de IA */
+    color: var(--txt-dark);
+    align-self: flex-start;
+}
+
+.user-message {
+    background-color: rgba(0, 0, 0, 0.85);
+    /* Negro semi-transparente para mensajes de usuario */
+    color: white;
+    margin-left: auto;
+    text-align: right;
+}
+
+/* Área de Input */
+.chat-input {
+    display: flex;
+    padding: 10px 15px;
+    border-top: 1px solid rgba(0, 0, 0, 0.15);
+    background-color: rgba(255, 255, 255, 0.9);
+}
+
+.chat-input input {
+    flex-grow: 1;
+    padding: 10px;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    border-radius: 6px;
+    margin-right: 10px;
+    font-size: 14px;
+    background-color: rgba(0, 0, 0, 0.02);
+    /* Input casi blanco */
+}
+
+.chat-input button {
+    background-color: var(--bg-dark);
+    /* Botón de envío negro */
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 6px;
+    cursor: pointer;
+}

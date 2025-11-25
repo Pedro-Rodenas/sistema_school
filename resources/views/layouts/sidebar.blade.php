@@ -38,6 +38,10 @@
     </nav>
 
     <div class="sidebar-footer">
-        <button class="logout-btn">Cerrar sesión</button>
+        <form action="{{ route('logout') }}" method="POST">
+            @csrf
+            <button type="submit" class="logout-btn">Cerrar sesión</button>
+        </form>
     </div>
+
 </div>

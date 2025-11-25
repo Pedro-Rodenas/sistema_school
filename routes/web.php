@@ -1,11 +1,13 @@
 <?php
 
+use App\Http\Controllers\AiAssistantController;
 use App\Http\Controllers\Auth\SocialController;
 use App\Http\Controllers\CursoController;
 use App\Http\Controllers\ProfesorController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AlumnoController;
 use App\Http\Controllers\DashboardController;
+use Illuminate\Support\Facades\Auth;
 
 Route::get('/', function () {
     return view('auth.login');
@@ -53,3 +55,13 @@ Route::post('/alumnos/{id}/cursos', [AlumnoController::class, 'actualizarCursos'
 Route::post('/login', [SocialController::class, 'authenticate'])->name('login.post');
 Route::get('/auth/redirect/{provider}', [SocialController::class, 'redirect'])->name('social.redirect');
 Route::get('/auth/callback/{provider}', [SocialController::class, 'callback'])->name('social.callback');
+
+/* Cerrar Sesión */
+Route::post('/logout', function () {
+    Auth::logout();
+    request()->session()->invalidate();
+    request()->session()->regenerateToken();
+    return redirect('/login');
+})->name('logout');
+
+Route::post('/api/ai/query', [AiAssistantController::class, 'processQuery']);

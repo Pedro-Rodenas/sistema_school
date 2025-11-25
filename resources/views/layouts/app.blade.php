@@ -28,7 +28,33 @@
         </main>
 
     </div>
+
+    <button class="fab-ai-button" id="ai-chat-trigger">
+        <i class="fa-solid fa-robot"></i>
+    </button>
+
+    <div class="ai-chat-modal" id="ai-chat-modal">
+        <div class="chat-header">
+            <h3>🤖 Asistente Académico IA</h3>
+            <button id="close-chat-btn" class="close-btn">&times;</button>
+        </div>
+        <div class="chat-body" id="chat-body">
+            <div class="message system-message">
+                Hola! Soy tu asistente de gestión. Pregúntame sobre la cantidad de cursos, alumnos o profesores por
+                nombre/estado.
+            </div>
+        </div>
+        <div class="chat-input">
+            <input type="text" id="user-input"
+                placeholder="Escribe tu pregunta (Ej: ¿Cuántos alumnos tiene el curso X?)" autofocus>
+            <button id="send-btn">
+                <i class="fa-solid fa-paper-plane"></i>
+            </button>
+        </div>
+    </div>
+
     @stack('scripts')
+    <script src="{{ asset('js/ia_js.js') }}?v={{ time() }}"></script>
 </body>
 
 </html>
